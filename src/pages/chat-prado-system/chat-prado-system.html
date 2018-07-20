@@ -1,0 +1,43 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>
+       Chat Prado System
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row *ngFor="let message of messages">
+      <ion-col  col-9 *ngIf="message.from !== pradoname" class="message" [ngClass]="{'my_message': message.from === pradoname, 'other_message': message.from !== pradoname}">
+        <span class="user_name">{{ message.from }}:</span><br>
+        <span>{{ message.text }}</span>
+        <div class="time">{{ message.created | date: 'dd.MM hh: MM'}}</div>
+      </ion-col>
+
+      <ion-col offset-3 col-9 *ngIf="message.from === pradoname" class="message" [ngClass]="{'my_message': message.from === pradoname, 'other_message': message.from !== pradoname}">
+          <span class="user_name">{{ message.from }}:</span><br>
+          <span>{{ message.text }}</span>
+          <div class="time">{{ message.created | date: 'dd.MM hh: MM'}}</div>
+        </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-row class="message-row">
+      <ion-col col-9>
+        <ion-item no-lines>
+          <ion-input type="text" placeholder="Message" [(ngModel)]="message"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col-3>
+        <button ion-button clear color="primary" (click)="sedMessage()" [disabled]="message === ''">
+          Send
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>
